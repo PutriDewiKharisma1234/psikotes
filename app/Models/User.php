@@ -17,6 +17,9 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    protected $table = 'users';
+    
     protected $fillable = [
         'name',
         'email',
@@ -32,6 +35,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    public function getAuthPassword()
+    {
+        return $this->kata_sandi; // Laravel otomatis baca kolom kata_sandi
+    }
 
     /**
      * Get the attributes that should be cast.
