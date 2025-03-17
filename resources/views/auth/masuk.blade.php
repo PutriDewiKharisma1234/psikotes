@@ -90,6 +90,7 @@
     <div class="container">
         <h1>Masuk Akun</h1>
         <form action="/proses-masuk" method="POST">
+            @csrf
             <input type="email" name="email" placeholder="Email" required>
             <div class="password-wrapper">
                 <input type="password" id="password" name="password" placeholder="Kata Sandi" required>

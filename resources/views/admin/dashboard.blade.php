@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
@@ -95,8 +95,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h4>Admin Panel</h4>
-        <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">Dashboard</a>
-        <a href="{{ url('/admin/users') }}">Data Pengguna</a>
+        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+        <a href="/admin/users">Data Pengguna</a>
+        <a href="/admin/psikotes">Data Psikotes</a>
+        <a href="/admin/mbti">Soal MBTI</a> <!-- Ditambahkan menu soal MBTI -->
         <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
 
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">

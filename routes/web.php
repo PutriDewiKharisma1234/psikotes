@@ -3,6 +3,8 @@
 use App\Http\Controllers\AutentikasiPengguna;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MbtiController;
+
 
 // Halaman Beranda
 Route::view('/', 'welcome');
@@ -41,6 +43,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users/edit/{id}', [UserController::class, 'edit']);
     Route::put('/admin/users/update/{id}', [UserController::class, 'update']);
     Route::delete('/admin/users/delete/{id}', [UserController::class, 'destroy']);
+
+    // Manajemen Soal MBTI
+    Route::get('/admin/mbti', [MbtiController::class, 'index']);
+    Route::get('/admin/mbti/create', [MbtiController::class, 'create']);
+    Route::post('/admin/mbti/store', [MbtiController::class, 'store']);
+    Route::get('/admin/mbti/edit/{id}', [MbtiController::class, 'edit']);
+    Route::put('/admin/mbti/update/{id}', [MbtiController::class, 'update']);
+    Route::delete('/admin/mbti/delete/{id}', [MbtiController::class, 'destroy']);
+
  // Logout Admin
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
