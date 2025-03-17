@@ -95,19 +95,20 @@
     <div class="container">
         <h1>Daftar Akun</h1>
         <form action="/proses-daftar" method="POST">
-            <input type="text" name="nama" placeholder="Nama Lengkap" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <div class="password-wrapper">
-                <input type="password" id="password" name="password" placeholder="Kata Sandi" required>
-                <span class="toggle-password" onclick="togglePassword('password')">🔒</span>
-            </div>
-            <div class="password-wrapper">
-                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" required>
-                <span class="toggle-password" onclick="togglePassword('password_confirmation')">🔒</span>
-            </div>
-            <button type="submit">Daftar</button>
-            <a href="/masuk">Sudah punya akun? Masuk di sini</a>
-        </form>
+        @csrf
+        <input type="text" name="nama" placeholder="Nama Lengkap" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <div class="password-wrapper">
+            <input type="password" id="password" name="password" placeholder="Kata Sandi" required>
+            <span class="toggle-password" onclick="togglePassword('password')">🔒</span>
+        </div>
+        <div class="password-wrapper">
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Kata Sandi" required>
+            <span class="toggle-password" onclick="togglePassword('password_confirmation')">🔒</span>
+        </div>
+        <button type="submit">Daftar</button>
+        <a href="/masuk">Sudah punya akun? Masuk di sini</a>
+    </form>
     </div>
 
     <script>

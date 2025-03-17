@@ -22,12 +22,14 @@ class AutentikasiPengguna extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'kata_sandi' => 'required|min:6|confirmed',
+            'peran' => 'in:admin,user', // Untuk menentukan admin atau user
         ]);
 
         User::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'kata_sandi' => bcrypt($request->kata_sandi),
+            'peran' => $request->peran ?? 'user', // Defaultnya user
         ]);
 
         return redirect('/masuk')->with('berhasil', 'Akun berhasil dibuat!');

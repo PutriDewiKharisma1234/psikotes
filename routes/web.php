@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AutentikasiPengguna;
+use App\Http\Controllers\AdminController;
+
 
 // Halaman Beranda
 Route::view('/', 'welcome');
@@ -20,3 +22,8 @@ Route::get('/dashboard', function () {
 
 // Logout
 Route::get('/keluar', [AutentikasiPengguna::class, 'keluar']);
+
+//admin
+Route::get('/admin', [AdminController::class, 'dashboard'])->middleware('admin');
+Route::get('/admin/login', [AdminController::class, 'halamanLoginAdmin']);
+Route::post('/admin/proses-login', [AdminController::class, 'prosesLoginAdmin']);
