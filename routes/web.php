@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MbtiController;
 use App\Http\Controllers\BigFiveController;
 use App\Http\Controllers\PsikotesController;
+use App\Http\Controllers\LaporanController;
 
 // Halaman Beranda
 Route::view('/', 'welcome');
@@ -54,6 +55,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Manajemen Hasil Psikotes
     Route::get('/admin/psikotes', [PsikotesController::class, 'index']);
     Route::delete('/admin/psikotes/delete/{id}', [PsikotesController::class, 'destroy']);
+
+    //Laporan psikotes
+    Route::get('/admin/laporan', [LaporanController::class, 'index']);
 
     // Manajemen Soal MBTI
     Route::get('/admin/mbti', [MbtiController::class, 'index']);
