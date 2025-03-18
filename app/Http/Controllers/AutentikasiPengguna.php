@@ -21,19 +21,19 @@ class AutentikasiPengguna extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'kata_sandi' => 'required|min:6|confirmed',
-            'peran' => 'in:admin,user', // Untuk menentukan admin atau user
+            'password' => 'required|min:6|confirmed',
         ]);
 
         User::create([
             'nama' => $request->nama,
             'email' => $request->email,
-            'kata_sandi' => bcrypt($request->kata_sandi),
-            'peran' => $request->peran ?? 'user', // Defaultnya user
+            'password' => bcrypt($request->password),
+            'peran' => 'user' // Secara default user akan menjadi "user"
         ]);
 
-        return redirect('/masuk')->with('berhasil', 'Akun berhasil dibuat!');
+        return redirect('/masuk')->with('success', 'Akun berhasil dibuat! Silakan masuk.');
     }
+
 
     // Halaman Login
     public function halamanLogin()
@@ -44,17 +44,25 @@ class AutentikasiPengguna extends Controller
     // Proses Login
     public function prosesLogin(Request $request)
     {
-        $kredensial = [
-            'email' => $request->email,
-            'password' => $request->kata_sandi // Password Laravel tetap membaca dari kata_sandi
-        ];
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-        if (Auth::attempt($kredensial)) {
-            return redirect('/beranda');
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Cek apakah pengguna adalah admin atau user
+            if ($user->peran === 'admin') {
+                return redirect('/admin/dashboard')->with('success', 'Selamat datang, Admin!');
+            } else {
+                return redirect('/dashboard')->with('success', 'Selamat datang di Dashboard Pengguna!');
+            }
         }
 
-        return back()->with('gagal', 'Email atau Kata Sandi Salah!');
+        return back()->with('error', 'Email atau kata sandi salah!');
     }
+
 
     // Logout
     public function keluar()

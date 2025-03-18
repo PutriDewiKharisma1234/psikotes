@@ -22,8 +22,8 @@ Route::post('/proses-masuk', [AutentikasiPengguna::class, 'prosesLogin']);
 // Dashboard Pengguna (User)
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+        return view('user.dashboard');
+    })->name('user.dashboard');
 
     // Simpan hasil tes psikotes otomatis
     Route::post('/simpan-hasil', [PsikotesController::class, 'simpanHasil']);
