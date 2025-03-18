@@ -98,7 +98,8 @@
         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="/admin/users">Data Pengguna</a>
         <a href="/admin/psikotes">Data Psikotes</a>
-        <a href="/admin/mbti">Soal MBTI</a> <!-- Ditambahkan menu soal MBTI -->
+        <a href="/admin/mbti">Soal MBTI</a> 
+        <a href="/admin/bigfive">Soal Big Five</a>
         <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>
 
         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">

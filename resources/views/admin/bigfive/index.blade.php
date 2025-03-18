@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Soal MBTI</title>
+    <title>Manajemen Soal Big Five</title>
     <style>
         body {
             background-color: #FFF7DC;
@@ -95,10 +95,10 @@
 
 <body>
     <div class="container">
-        <h2>Manajemen Soal MBTI</h2>
+        <h2>Manajemen Soal Big Five</h2>
 
         <div class="tambah-soal">
-            <a href="/admin/mbti/create" class="btn-tambah">Tambah Soal</a>
+            <a href="/admin/bigfive/create" class="btn-tambah">Tambah Soal</a>
         </div>
 
         <table>
@@ -106,7 +106,7 @@
                 <tr>
                     <th>No</th>
                     <th>Pertanyaan</th>
-                    <th>Dimensi MBTI</th>
+                    <th>Dimensi Big Five</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -117,8 +117,8 @@
                     <td>{{ $item->pertanyaan }}</td>
                     <td>{{ $item->dimensi }}</td>
                     <td>
-                        <a href="/admin/mbti/edit/{{ $item->id }}" class="btn-edit">Edit</a>
-                        <form action="/admin/mbti/delete/{{ $item->id }}" method="POST" style="display: inline;">
+                        <a href="/admin/bigfive/edit/{{ $item->id }}" class="btn-edit">Edit</a>
+                        <form action="/admin/bigfive/delete/{{ $item->id }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus soal ini?')">Hapus</button>

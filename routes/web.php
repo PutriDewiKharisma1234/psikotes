@@ -4,6 +4,8 @@ use App\Http\Controllers\AutentikasiPengguna;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MbtiController;
+use App\Http\Controllers\BigFiveController;
+
 
 
 // Halaman Beranda
@@ -51,6 +53,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/mbti/edit/{id}', [MbtiController::class, 'edit']);
     Route::put('/admin/mbti/update/{id}', [MbtiController::class, 'update']);
     Route::delete('/admin/mbti/delete/{id}', [MbtiController::class, 'destroy']);
+
+    //Manajement Soal Big Five
+    Route::get('/admin/bigfive', [BigFiveController::class, 'index']);
+    Route::get('/admin/bigfive/create', [BigFiveController::class, 'create']);
+    Route::post('/admin/bigfive/store', [BigFiveController::class, 'store']);
+    Route::get('/admin/bigfive/edit/{id}', [BigFiveController::class, 'edit']);
+    Route::put('/admin/bigfive/update/{id}', [BigFiveController::class, 'update']);
+    Route::delete('/admin/bigfive/delete/{id}', [BigFiveController::class, 'destroy']);
 
  // Logout Admin
     Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
