@@ -27,6 +27,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Simpan hasil tes psikotes otomatis
     Route::post('/simpan-hasil', [PsikotesController::class, 'simpanHasil']);
+
+    //simpan pdf
+    Route::get('/hasil-tes/{id}/pdf', [PsikotesController::class, 'downloadPDF'])->name('hasil.tes.pdf');
+
+    //Saran Karir
+    Route::get('/hasil-tes/{id}', [PsikotesController::class, 'hasilTes'])->name('hasil.tes');
+
 });
 
 // Logout Pengguna

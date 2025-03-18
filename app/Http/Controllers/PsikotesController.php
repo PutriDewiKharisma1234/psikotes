@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\HasilPsikotes;
+use App\Models\SaranKarir;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PsikotesController extends Controller
 {
-    // ✅ 1. Menampilkan semua hasil psikotes di Dashboard Admin
+    //Menampilkan semua hasil psikotes di Dashboard Admin
     public function index()
     {
         $hasil = HasilPsikotes::with('user')->get();
         return view('admin.psikotes.index', compact('hasil'));
     }
 
-    // ✅ 2. Menyimpan hasil tes psikotes setelah pengguna selesai mengikuti tes
+    //Menyimpan hasil tes psikotes setelah pengguna selesai mengikuti tes
     public function simpanHasil(Request $request)
     {
         // Validasi input
@@ -88,4 +90,35 @@ class PsikotesController extends Controller
         }
         return redirect('/admin/psikotes')->with('error', 'Hasil tes tidak ditemukan!');
     }
+
+    //Saran Karir
+    public function hasilTes($id)
+    {
+        $hasil = HasilPsikotes::with('user')->find($id);
+        
+        if (!$hasil) {
+            return redirect('/dashboard')->with('error', 'Hasil tes tidak ditemukan.');
+        }
+
+        $saranKarir = SaranKarir::where('tipe_kepribadian', $hasil->hasil)->first();
+
+        return view('user.hasil_tes', compact('hasil', 'saranKarir'));
+    }
+
+    //Simpan PDF
+    public function downloadPDF($id)
+    {
+        $hasil = HasilPsikotes::with('user')->find($id);
+
+        if (!$hasil) {
+            return redirect('/dashboard')->with('error', 'Hasil tes tidak ditemukan.');
+        }
+
+        $saranKarir = SaranKarir::where('tipe_kepribadian', $hasil->hasil)->first();
+
+        $pdf = PDF::loadView('user.pdf_hasil_tes', compact('hasil', 'saranKarir'));
+        
+        return $pdf->download('Hasil_Tes_' . $hasil->user->nama . '.pdf');
+    }
+
 }
