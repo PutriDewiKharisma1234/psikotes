@@ -63,6 +63,37 @@ class AutentikasiPengguna extends Controller
         return back()->with('error', 'Email atau kata sandi salah!');
     }
 
+    public function halamanProfil()
+    {
+        $user = Auth::user(); // Ambil data user yang sedang login
+        return view('user.profil', compact('user'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = Auth::user(); // Ambil user yang sedang login
+
+        // Validasi input
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+        ]);
+
+        // Update nama dan email
+        $user->nama = $request->nama;
+        $user->email = $request->email;
+
+        // Jika password diisi, update password
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save(); // Simpan perubahan
+
+        return redirect('/user/profil')->with('success', 'Profil berhasil diperbarui!');
+    }
+
 
     // Logout
     public function keluar()

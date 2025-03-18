@@ -25,6 +25,11 @@ Route::middleware(['auth'])->group(function () {
         return view('user.dashboard');
     })->name('user.dashboard');
 
+    // Halaman Edit Profil
+    Route::get('/user/profil', [AutentikasiPengguna::class, 'halamanProfil'])->middleware('auth');
+    Route::post('/user/profil/update', [AutentikasiPengguna::class, 'updateProfil'])->middleware('auth');
+
+
     // Simpan hasil tes psikotes otomatis
     Route::post('/simpan-hasil', [PsikotesController::class, 'simpanHasil']);
 
