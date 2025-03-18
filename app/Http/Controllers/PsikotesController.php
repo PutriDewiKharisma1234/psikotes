@@ -34,7 +34,51 @@ class PsikotesController extends Controller
         return redirect('/dashboard')->with('success', 'Hasil tes telah disimpan!');
     }
 
-    // ✅ 3. Menghapus hasil tes psikotes (hanya admin yang bisa)
+    //Detail Hasil Tes
+    public function detail($id)
+    {
+        $hasil = HasilPsikotes::with('user')->find($id);
+        
+        if (!$hasil) {
+            return redirect('/admin/psikotes')->with('error', 'Hasil tes tidak ditemukan.');
+        }
+
+        return view('admin.psikotes.detail', compact('hasil'));
+    }
+
+    //Bagian Edit
+    public function edit($id)
+    {
+        $hasil = HasilPsikotes::with('user')->find($id);
+        
+        if (!$hasil) {
+            return redirect('/admin/psikotes')->with('error', 'Hasil tes tidak ditemukan.');
+        }
+
+        return view('admin.psikotes.edit', compact('hasil'));
+    }
+
+    //Bagian Update
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'hasil' => 'required|string',
+        ]);
+
+        $hasil = HasilPsikotes::find($id);
+        if (!$hasil) {
+            return redirect('/admin/psikotes')->with('error', 'Hasil tes tidak ditemukan.');
+        }
+
+        $hasil->update([
+            'hasil' => $request->hasil,
+        ]);
+
+        return redirect('/admin/psikotes')->with('success', 'Hasil tes berhasil diperbarui!');
+    }
+
+
+    //Menghapus hasil tes psikotes (hanya admin yang bisa)
     public function destroy($id)
     {
         $hasil = HasilPsikotes::find($id);

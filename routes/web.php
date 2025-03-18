@@ -54,7 +54,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Manajemen Hasil Psikotes
     Route::get('/admin/psikotes', [PsikotesController::class, 'index']);
-    Route::delete('/admin/psikotes/delete/{id}', [PsikotesController::class, 'destroy']);
+    Route::get('/admin/psikotes/detail/{id}', [PsikotesController::class, 'detail'])->name('admin.psikotes.detail');
+    Route::get('/admin/psikotes/edit/{id}', [PsikotesController::class, 'edit'])->name('admin.psikotes.edit');
+    Route::put('/admin/psikotes/update/{id}', [PsikotesController::class, 'update'])->name('admin.psikotes.update');
+    Route::delete('/admin/psikotes/delete/{id}', [PsikotesController::class, 'destroy'])->name('admin.psikotes.delete');
 
     //Laporan psikotes
     Route::get('/admin/laporan', [LaporanController::class, 'index']);

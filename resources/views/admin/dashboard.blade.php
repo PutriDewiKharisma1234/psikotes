@@ -121,21 +121,21 @@
             <div class="col">
                 <div class="card">
                     <h3>Jumlah Pengguna</h3>
-                    <p>120 User</p>
+                    <p>{{ $jumlahPengguna }} User</p>
                 </div>
             </div>
 
             <div class="col">
                 <div class="card">
                     <h3>Jumlah Tes Psikotes</h3>
-                    <p>45 Tes</p>
+                    <p>{{ $jumlahTes }} Tes</p>
                 </div>
             </div>
 
             <div class="col">
                 <div class="card">
                     <h3>Hasil Tes</h3>
-                    <p>85 Hasil</p>
+                    <p>{{ $jumlahHasil }} Hasil</p>
                 </div>
             </div>
         </div>

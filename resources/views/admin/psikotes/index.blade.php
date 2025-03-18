@@ -38,6 +38,8 @@
                     <td>{{ $item->hasil }}</td>
                     <td>{{ $item->created_at->format('d M Y') }}</td>
                     <td>
+                        <a href="{{ route('admin.psikotes.detail', $item->id) }}" class="btn-edit">Lihat Detail</a>
+                        <a href="{{ route('admin.psikotes.edit', $item->id) }}" class="btn-edit">Edit</a>
                         <form action="/admin/psikotes/delete/{{ $item->id }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')

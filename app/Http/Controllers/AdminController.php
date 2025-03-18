@@ -29,8 +29,13 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $jumlahPengguna = \App\Models\User::count();
+        $jumlahTes = \App\Models\HasilPsikotes::count();
+        $jumlahHasil = \App\Models\HasilPsikotes::count();
+
+        return view('admin.dashboard', compact('jumlahPengguna', 'jumlahTes', 'jumlahHasil'));
     }
+
 
     public function logout()
     {
