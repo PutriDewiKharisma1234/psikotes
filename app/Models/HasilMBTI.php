@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HasilPsikotes extends Model
+class HasilMBTI extends Model
 {
     use HasFactory;
 
-    protected $table = 'hasil_psikotes';
-    
-    protected $fillable = [
-        'user_id', 'jenis_tes', 'hasil', 'big_five'
-    ];
-
-    protected $casts = [
-        'big_five' => 'array',
-    ];
+    protected $table = 'hasil_mbti';
+    protected $fillable = ['user_id', 'tipe_mbti'];
 
     public function user()
     {

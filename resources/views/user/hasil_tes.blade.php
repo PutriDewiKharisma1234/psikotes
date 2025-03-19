@@ -28,15 +28,14 @@
             border-radius: 10px;
             margin-top: 20px;
         }
-
         .btn-download {
-        display: inline-block;
-        background-color: #C2A883;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 10px;
-        text-decoration: none;
-        margin-top: 20px;
+            display: inline-block;
+            background-color: #C2A883;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 20px;
         }
         .btn-download:hover {
             background-color: #A0764B;
@@ -48,7 +47,19 @@
         <h2>Hasil Tes Psikotes</h2>
         <p><strong>Nama:</strong> {{ $hasil->user->nama }}</p>
         <p><strong>Jenis Tes:</strong> {{ $hasil->jenis_tes }}</p>
-        <p><strong>Hasil:</strong> {{ $hasil->hasil }}</p>
+
+        @if ($hasil->jenis_tes == 'MBTI')
+            <p><strong>Hasil MBTI:</strong> {{ $hasil->hasil }}</p>
+            
+        @elseif ($hasil->jenis_tes == 'Big Five')
+            <p><strong>Hasil Big Five:</strong></p>
+            <ul>
+                @foreach ($hasil->big_five as $dimensi => $nilai)
+                    <li><strong>{{ $dimensi }}</strong>: {{ $nilai }}%</li>
+                @endforeach
+            </ul>
+        @endif
+
         <p><strong>Tanggal Tes:</strong> {{ $hasil->created_at->format('d M Y') }}</p>
 
         @if ($saranKarir)
@@ -63,5 +74,6 @@
         <a href="{{ route('hasil.tes.pdf', $hasil->id) }}" class="btn-download">Unduh PDF</a>
         <a href="/dashboard">Kembali ke Dashboard</a>
     </div>
+
 </body>
 </html>

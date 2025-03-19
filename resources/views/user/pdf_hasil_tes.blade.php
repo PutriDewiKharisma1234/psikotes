@@ -32,9 +32,23 @@
         <h2>Hasil Tes Psikologi</h2>
         <p><strong>Nama:</strong> {{ $hasil->user->nama }}</p>
         <p><strong>Jenis Tes:</strong> {{ $hasil->jenis_tes }}</p>
-        <p><strong>Hasil:</strong> {{ $hasil->hasil }}</p>
+
+        <!-- Menampilkan Hasil MBTI atau Big Five -->
+        @if ($hasil->jenis_tes == 'MBTI')
+            <p><strong>Hasil MBTI:</strong> {{ $hasil->hasil }}</p>
+            <p><strong>Deskripsi:</strong> {{ $hasil->deskripsi }}</p>
+        @elseif ($hasil->jenis_tes == 'Big Five')
+            <p><strong>Hasil Big Five:</strong></p>
+            <ul>
+                @foreach ($hasil->big_five as $dimensi => $nilai)
+                    <li><strong>{{ $dimensi }}</strong>: {{ $nilai }}%</li>
+                @endforeach
+            </ul>
+        @endif
+
         <p><strong>Tanggal Tes:</strong> {{ $hasil->created_at->format('d M Y') }}</p>
 
+        <!-- Menampilkan Saran Karir Jika Ada -->
         @if ($saranKarir)
         <div class="saran">
             <h3>Saran Karir:</h3>

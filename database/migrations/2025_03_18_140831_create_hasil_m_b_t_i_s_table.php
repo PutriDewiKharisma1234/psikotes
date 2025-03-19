@@ -11,21 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('soal_mbti', function (Blueprint $table) {
+        Schema::create('hasil_mbti', function (Blueprint $table) {
             $table->id();
-            $table->string('pertanyaan');
-            $table->enum('dimensi', ['Ekstrovert vs Introvert', 'Sensing vs Intuition', 'Thinking vs Feeling', 'Judging vs Perceiving']);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Hubungkan ke tabel users
+            $table->string('tipe_mbti'); // Simpan hasil tipe MBTI (misal: INFP, ESTJ)
             $table->timestamps();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('soal_mbti');
+        Schema::dropIfExists('hasil_mbti');
     }
 };

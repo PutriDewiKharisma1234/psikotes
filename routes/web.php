@@ -7,6 +7,8 @@ use App\Http\Controllers\MbtiController;
 use App\Http\Controllers\BigFiveController;
 use App\Http\Controllers\PsikotesController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\HasilPsikotesController;
+
 
 // Halaman Beranda
 Route::view('/', 'welcome');
@@ -29,15 +31,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/profil', [AutentikasiPengguna::class, 'halamanProfil'])->middleware('auth');
     Route::post('/user/profil/update', [AutentikasiPengguna::class, 'updateProfil'])->middleware('auth');
 
+    // Tes MBTI
+    Route::get('/user/tes_mbti', [MbtiController::class, 'tesMBTI'])->name('tes.mbti');
+    Route::post('/user/tes_mbti/proses', [MbtiController::class, 'prosesTes'])->name('tes.mbti.proses');
+    Route::get('/user/tes_mbti/hasil', [MbtiController::class, 'hasilTes'])->name('tes.mbti.hasil');
+
+    // Download Hasil Tes MBTI dalam Bentuk PDF
+    Route::get('/user/tes_mbti/pdf', [MbtiController::class, 'downloadPDF'])->middleware('auth');
+
+    // Menampilkan hasil tes
+    Route::get('/hasil_tes/{id}', [HasilPsikotesController::class, 'show'])->name('hasil.tes');
+
+    // Download hasil tes dalam PDF
+    Route::get('/hasil_tes/{id}/pdf', [HasilPsikotesController::class, 'downloadPdf'])->name('hasil.tes.pdf');
 
     // Simpan hasil tes psikotes otomatis
     Route::post('/simpan-hasil', [PsikotesController::class, 'simpanHasil']);
 
     //simpan pdf
-    Route::get('/hasil-tes/{id}/pdf', [PsikotesController::class, 'downloadPDF'])->name('hasil.tes.pdf');
+    Route::get('/hasil_tes/{id}/pdf', [PsikotesController::class, 'downloadPDF'])->name('hasil.tes.pdf');
 
     //Saran Karir
-    Route::get('/hasil-tes/{id}', [PsikotesController::class, 'hasilTes'])->name('hasil.tes');
+    Route::get('/hasil_tes/{id}', [PsikotesController::class, 'hasilTes'])->name('hasil.tes');
 
 });
 
