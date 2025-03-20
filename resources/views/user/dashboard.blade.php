@@ -87,7 +87,7 @@
         <div>
             <a href="/user/profil">Profil</a>
             <a href="/user/tes_mbti">Tes MBTI</a>
-            <a href="/user/tes-bigfive">Tes Big Five</a>
+            <a href="/user/tes_bigfive">Tes Big Five</a>
             <a href="/user/hasil-tes">Hasil Tes</a>
             <a href="/keluar">Logout</a>
         </div>
@@ -98,7 +98,7 @@
             <h1>Selamat Datang di Dashboard Pengguna!</h1>
             <p>"Kenali kepribadianmu dan temukan jalur karirmu melalui psikotes ini."</p>
             <a href="/user/tes_mbti" class="btn">Mulai Tes MBTI</a>
-            <a href="/user/tes-bigfive" class="btn">Mulai Tes Big Five</a>
+            <a href="/user/tes_bigfive" class="btn">Mulai Tes Big Five</a>
         </div>
 
         <div class="images">

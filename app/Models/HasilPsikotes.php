@@ -23,4 +23,9 @@ class HasilPsikotes extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function saranKarir()
+    {
+        return $this->hasOne(SaranKarir::class, 'hasil_psikotes_id');
+    }
 }

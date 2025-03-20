@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tes MBTI</title>
+    <title>Tes Big Five</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -42,7 +42,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px; /* Beri jarak antara dua pilihan */
+            gap: 20px;
             margin-top: 10px;
         }
 
@@ -50,7 +50,7 @@
             background-color: #f4e1c8;
             padding: 12px;
             border-radius: 8px;
-            width: 150px; /* Lebar yang lebih tetap untuk keseimbangan */
+            width: 150px;
             text-align: center;
             cursor: pointer;
             transition: background 0.3s ease-in-out;
@@ -99,13 +99,13 @@
             }
 
             .jawaban {
-                flex-direction: row; /* Tetap horizontal pada layar kecil */
-                flex-wrap: wrap; /* Jika layar terlalu kecil, bisa pindah ke bawah */
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 10px;
             }
 
             .jawaban label {
-                width: 45%; /* Gunakan sekitar setengah dari lebar */
+                width: 45%;
             }
         }
     </style>
@@ -113,12 +113,12 @@
 <body>
 
     <div class="container">
-        <h2>Tes MBTI</h2>
+        <h2>Tes Big Five</h2>
         <p>Silakan pilih jawaban yang sesuai dengan kepribadian Anda.</p>
 
         <div class="alert" id="error-message">Harap jawab semua pertanyaan sebelum mengirim!</div>
 
-        <form id="tesMbtiForm" action="{{ route('tes.mbti.proses') }}" method="POST">
+        <form id="tesBigFiveForm" action="{{ route('tes.bigfive.proses') }}" method="POST">
             @csrf
 
             @foreach ($soal as $item)

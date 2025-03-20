@@ -91,7 +91,7 @@ class PsikotesController extends Controller
         return redirect('/admin/psikotes')->with('error', 'Hasil tes tidak ditemukan!');
     }
 
-    //Saran Karir
+    // Menampilkan Hasil Tes & Saran Karir
     public function hasilTes($id)
     {
         $hasil = HasilPsikotes::with('user')->find($id);
@@ -100,10 +100,27 @@ class PsikotesController extends Controller
             return redirect('/dashboard')->with('error', 'Hasil tes tidak ditemukan.');
         }
 
-        $saranKarir = SaranKarir::where('tipe_kepribadian', $hasil->hasil)->first();
+        $saranKarir = null;
+
+        if ($hasil->jenis_tes == 'MBTI') {
+            // Ambil saran karir berdasarkan hasil MBTI
+            $saranKarir = SaranKarir::where('tipe_kepribadian', $hasil->hasil)->first();
+        } elseif ($hasil->jenis_tes == 'Big Five') {
+            // Ubah hasil Big Five dari JSON ke array
+            $hasil->big_five = json_decode($hasil->hasil, true);
+
+            if ($hasil->big_five) {
+                // Ambil dimensi dengan skor tertinggi
+                $dimensiTertinggi = array_keys($hasil->big_five, max($hasil->big_five))[0];
+
+                // Cari saran karir berdasarkan dimensi tertinggi
+                $saranKarir = SaranKarir::where('tipe_kepribadian', $dimensiTertinggi)->first();
+            }
+        }
 
         return view('user.hasil_tes', compact('hasil', 'saranKarir'));
     }
+
 
     //Simpan PDF
     public function downloadPDF($id)
@@ -120,5 +137,46 @@ class PsikotesController extends Controller
         
         return $pdf->download('Hasil_Tes_' . $hasil->user->nama . '.pdf');
     }
+
+    public function show($id)
+    {
+        $hasil = HasilPsikotes::with('user')->findOrFail($id);
+        $saranKarir = null; // Default saran karir
+
+        if ($hasil->jenis_tes == 'MBTI') {
+            // Ambil saran karir berdasarkan hasil MBTI
+            $saranKarir = SaranKarir::where('tipe_kepribadian', $hasil->hasil)->first();
+        } elseif ($hasil->jenis_tes == 'Big Five') {
+            // Decode hasil Big Five dari JSON ke array
+            $hasil->big_five = json_decode($hasil->hasil, true);
+
+            if (is_array($hasil->big_five)) {
+                // Ambil nilai tertinggi
+                $nilaiTertinggi = max($hasil->big_five);
+                // Ambil semua dimensi yang memiliki nilai tertinggi
+                $dimensiTertinggi = array_keys($hasil->big_five, $nilaiTertinggi);
+
+                // **Menentukan Dimensi Utama**  
+                $prioritasDimensi = ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism'];
+                $dimensiTerpilih = null;
+
+                foreach ($prioritasDimensi as $dimensi) {
+                    if (in_array($dimensi, $dimensiTertinggi)) {
+                        $dimensiTerpilih = $dimensi;
+                        break;
+                    }
+                }
+
+                // Cek apakah dimensi terpilih ditemukan
+                if ($dimensiTerpilih) {
+                    $saranKarir = SaranKarir::where('tipe_kepribadian', $dimensiTerpilih)->first();
+                }
+            }
+        }
+
+        return view('user.hasil_tes', compact('hasil', 'saranKarir'));
+    }
+
+
 
 }

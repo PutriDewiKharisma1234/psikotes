@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SoalMBTI;
 use App\Models\HasilMBTI;
 use App\Models\HasilPsikotes;
+use App\Models\SaranKarir;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -106,17 +107,29 @@ class MbtiController extends Controller
 
 
     //Download hasil tes MBTI
-    public function downloadPDF()
+    public function downloadPDF($id)
     {
-        $user = Auth::user();
-        $hasil = HasilMBTI::where('user_id', $user->id)->latest()->first(); // Ambil hasil terbaru
+         // Ambil data hasil tes berdasarkan ID
+        $hasil = HasilPsikotes::with('user', 'saranKarir')->findOrFail($id);
+        
+        // Menentukan deskripsi berdasarkan hasil MBTI
+        $deskripsi = $this->getDeskripsiMBTI($hasil->hasil);
 
-        if (!$hasil) {
-            return redirect('/user/tes_mbti/hasil')->with('error', 'Belum ada hasil tes yang tersedia.');
+        // Jika ada saran karir, masukkan ke dalam data view
+        $saranKarir = $hasil->saranKarir;
+
+        // Debugging: Cek apakah saran karir terambil
+        \Log::info('Saran Karir di PDF:', ['saranKarir' => $hasil->saranKarir]);
+
+        // Jika masih null, coba ambil manual
+        if (!$saranKarir) {
+            $saranKarir = SaranKarir::where('hasil_psikotes_id', $hasil->id)->first();
         }
 
-        $pdf = PDF::loadView('user.pdf-hasil-mbti', compact('user', 'hasil'));
-        return $pdf->download('Hasil_Tes_MBTI.pdf');
+
+        $pdf = Pdf::loadView('user.pdf_hasil_tes', compact('hasil', 'deskripsi', 'saranKarir'));
+
+        return $pdf->download('Hasil_Tes_' . $hasil->user->nama . '.pdf');
     }
 
 

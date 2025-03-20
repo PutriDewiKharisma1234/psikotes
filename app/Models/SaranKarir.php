@@ -9,5 +9,12 @@ class SaranKarir extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipe_kepribadian', 'saran'];
+    protected $table = 'saran_karirs';
+
+    protected $fillable = ['hasil_psikotes_id', 'tipe_kepribadian', 'saran'];
+
+    public function hasilPsikotes()
+    {
+        return $this->belongsTo(HasilPsikotes::class, 'hasil_psikotes_id');
+    }
 }
