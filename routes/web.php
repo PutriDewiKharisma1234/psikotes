@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
     // Download hasil tes dalam PDF
     Route::get('/user/pdf_hasil_tes/{id}/pdf', [HasilPsikotesController::class, 'downloadPdf'])->name('hasil.tes.pdf');
 
+    Route::get('/user/semua_hasil_tes', [HasilPsikotesController::class, 'semuaHasil'])->name('user.hasil.semua');
+
     // Simpan hasil tes psikotes otomatis
     Route::post('/simpan-hasil', [PsikotesController::class, 'simpanHasil'])->name('psikotes.simpan');
 

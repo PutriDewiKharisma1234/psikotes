@@ -88,7 +88,7 @@
             <a href="/user/profil">Profil</a>
             <a href="/user/tes_mbti">Tes MBTI</a>
             <a href="/user/tes_bigfive">Tes Big Five</a>
-            <a href="/user/hasil-tes">Hasil Tes</a>
+            <a href="/user/semua_hasil_tes">Hasil Tes</a>
             <a href="/keluar">Logout</a>
         </div>
     </div>

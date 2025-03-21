@@ -131,6 +131,24 @@ class HasilPsikotesController extends Controller
 
         return $deskripsiMBTI[$tipe] ?? 'Deskripsi untuk tipe ini belum tersedia.';
     }
+
+    //tampilan semua hasil psikotes user
+    public function semuaHasil()
+    {
+        // Ambil semua hasil tes pengguna berdasarkan user_id
+        $hasilTes = HasilPsikotes::where('user_id', auth()->id())
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        // Jika belum ada tes yang dilakukan, beri pesan
+        if ($hasilTes->isEmpty()) {
+            return redirect('/dashboard')->with('error', 'Anda belum melakukan tes.');
+        }
+
+        // Kirim semua hasil tes ke view
+        return view('user.semua_hasil_tes', compact('hasilTes'));
+    }
+
  
 
 }
