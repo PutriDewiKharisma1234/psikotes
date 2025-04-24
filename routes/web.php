@@ -13,6 +13,11 @@ use App\Http\Controllers\HasilPsikotesController;
 // Halaman Beranda
 Route::view('/', 'welcome');
 
+// Halaman Metode Tes (MBTI dan Big Five)
+Route::get('/metode', function () {
+    return view('auth.metode');
+});
+
 // Halaman Register
 Route::get('/daftar', [AutentikasiPengguna::class, 'halamanRegistrasi']);
 Route::post('/proses-daftar', [AutentikasiPengguna::class, 'prosesRegistrasi']);

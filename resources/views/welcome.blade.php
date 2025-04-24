@@ -73,7 +73,7 @@
         <div>
             <a href="/daftar">Daftar</a>
             <a href="/masuk">Masuk</a>
-            <a href="#metode">Metode Tes</a>
+            <a href="/metode">Metode Tes</a>
         </div>
     </div>
 
