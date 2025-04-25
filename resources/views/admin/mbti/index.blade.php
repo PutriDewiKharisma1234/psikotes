@@ -31,7 +31,8 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 20px;
             text-align: center;
             border-bottom: 1px solid #ddd;
@@ -90,6 +91,13 @@
         .btn-tambah:hover {
             background-color: #A0764B;
         }
+
+        .aksi-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
 </head>
 
@@ -117,12 +125,14 @@
                     <td>{{ $item->pertanyaan }}</td>
                     <td>{{ $item->dimensi }}</td>
                     <td>
-                        <a href="/admin/mbti/edit/{{ $item->id }}" class="btn-edit">Edit</a>
-                        <form action="/admin/mbti/delete/{{ $item->id }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus soal ini?')">Hapus</button>
-                        </form>
+                        <div class="aksi-buttons">
+                            <a href="/admin/mbti/edit/{{ $item->id }}" class="btn-edit">Edit</a>
+                            <form action="/admin/mbti/delete/{{ $item->id }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus soal ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-hapus">Hapus</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

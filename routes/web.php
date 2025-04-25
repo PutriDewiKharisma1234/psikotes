@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/tes_mbti', [MbtiController::class, 'tesMBTI'])->name('tes.mbti');
     Route::post('/user/tes_mbti/proses', [MbtiController::class, 'prosesTes'])->name('tes.mbti.proses');
     Route::get('/user/tes_mbti/hasil', [MbtiController::class, 'hasilTes'])->name('tes.mbti.hasil');
+    
 
     // Download Hasil Tes MBTI dalam PDF
     Route::get('/user/tes_mbti/hasil/{id}/pdf', [MbtiController::class, 'downloadPDF'])->name('tes.mbti.pdf');
@@ -105,6 +106,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/mbti/edit/{id}', [MbtiController::class, 'edit']);
     Route::put('/admin/mbti/update/{id}', [MbtiController::class, 'update']);
     Route::delete('/admin/mbti/delete/{id}', [MbtiController::class, 'destroy']);
+
 
     // Manajemen Soal Big Five
     Route::get('/admin/bigfive', [BigFiveController::class, 'index']);

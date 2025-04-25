@@ -31,7 +31,8 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 20px;
             text-align: center;
             border-bottom: 1px solid #ddd;
@@ -53,6 +54,7 @@
             border: none;
             border-radius: 8px;
             text-decoration: none;
+            display: inline-block;
         }
 
         .btn-edit:hover {
@@ -66,10 +68,18 @@
             border: none;
             border-radius: 8px;
             text-decoration: none;
+            display: inline-block;
         }
 
         .btn-hapus:hover {
             background-color: #C0392B;
+        }
+
+        .aksi-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
         }
 
         .tambah-soal {
@@ -117,12 +127,14 @@
                     <td>{{ $item->pertanyaan }}</td>
                     <td>{{ $item->dimensi }}</td>
                     <td>
-                        <a href="/admin/bigfive/edit/{{ $item->id }}" class="btn-edit">Edit</a>
-                        <form action="/admin/bigfive/delete/{{ $item->id }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus soal ini?')">Hapus</button>
-                        </form>
+                        <div class="aksi-buttons">
+                            <a href="/admin/bigfive/edit/{{ $item->id }}" class="btn-edit">Edit</a>
+                            <form action="/admin/bigfive/delete/{{ $item->id }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-hapus" onclick="return confirm('Yakin ingin menghapus soal ini?')">Hapus</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

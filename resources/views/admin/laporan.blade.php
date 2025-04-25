@@ -65,6 +65,7 @@
             data: {
                 labels: bigFiveLabels,
                 datasets: [{
+                    label: 'Jumlah Peserta',
                     data: bigFiveValues,
                     backgroundColor: ['#FF5733', '#33FF57', '#337BFF', '#F3FF33', '#FF33E3']
                 }]

@@ -58,6 +58,15 @@ class MbtiController extends Controller
         return redirect('/admin/mbti')->with('success', 'Soal MBTI berhasil diperbarui!');
     }
 
+    public function destroy($id)
+    {
+        $soal = SoalMBTI::findOrFail($id);
+        $soal->delete();
+
+        return redirect()->back()->with('success', 'Soal berhasil dihapus.');
+    }
+
+
     // Menampilkan halaman tes MBTI
     public function tesMBTI()
     {
